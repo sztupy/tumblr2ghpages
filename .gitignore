@@ -1,0 +1,26 @@
+*.gem
+*.rbc
+.bundle
+.config
+.sass-cache
+coverage
+InstalledFiles
+lib/bundler/man
+pkg
+rdoc
+site/.sass-cache
+spec/reports
+test/tmp
+test/version_tmp
+tmp
+
+_posts
+tumblr_files
+
+# YARD artifacts
+.yardoc
+_yardoc
+doc/
+
+.DS_Store
+Gemfile.lock

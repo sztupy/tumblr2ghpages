@@ -36,6 +36,12 @@ module Importer
 
         blog = client.posts(@url, reblog_info: true, limit: per_page, offset: current_page*per_page)
 
+        FileUtils.mkdir_p('dump')
+
+        File.open(File.join('dump', "dump-#{current_page}.json"),"w+") do |out|
+          out.puts blog.to_json
+        end
+
         @username = blog["blog"]["name"]
 
         puts "Page: #{current_page + 1} - Posts: #{blog["posts"].size}"
@@ -187,7 +193,7 @@ module Importer
                 modified = true
               end
               # some logic to determine if it was probably original content or not
-              if !post['source_url'] && !post['type'] == 'link' && (!post['type'] == 'video' || post['video_type'] == 'tumblr')
+              if (post['source_url'].nil? || post['source_url'].empty?) && post['type'] != 'link' && (post['type'] != 'video' || post['video_type'] == 'tumblr')
                 if !tags.include?(@auto_tags[:own])
                   tags << @auto_tags[:own]
                   modified = true
